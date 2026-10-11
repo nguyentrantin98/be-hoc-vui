@@ -1,7 +1,8 @@
 {
+ "engine": "edge",
  "voices": {
-  "vi": "vi_VN-vais1000-medium",
-  "en": "en_US-hfc_female-medium"
+  "vi": "vi-VN-HoaiMyNeural",
+  "en": "en-US-AnaNeural"
  },
  "vi": [
   "10z9ue",
