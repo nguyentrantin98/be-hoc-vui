@@ -1,0 +1,44 @@
+name: Generate Piper voice files
+
+# Tạo lại mp3 khi nội dung câu đọc thay đổi, rồi commit vào public/voice
+on:
+  push:
+    paths:
+      - 'src/data.js'
+      - 'src/text.js'
+      - 'src/phrases.js'
+      - 'scripts/gen_voice.py'
+      - '.github/workflows/voice.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: voice-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: pip install piper-tts
+      - run: node scripts/export-phrases.mjs > "$RUNNER_TEMP/phrases.json"
+      - run: python scripts/gen_voice.py "$RUNNER_TEMP/phrases.json"
+      - name: Commit voice files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add public/voice
+          git diff --cached --quiet && exit 0
+          git commit -m "Regenerate Piper voice files"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
