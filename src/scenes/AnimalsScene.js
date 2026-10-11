@@ -7,6 +7,17 @@ import { t, L } from '../i18n.js';
 export class AnimalsScene extends BaseScene {
   constructor() { super('Animals'); }
 
+  preload() {
+    ANIMALS.forEach((a) => this.load.image(`animal-${a.img}`, `./img/animals/${a.img}.png`));
+  }
+
+  // Ảnh 3D có kích thước hiển thị = size (px)
+  animal(x, y, a, size) {
+    const img = this.add.image(x, y, `animal-${a.img}`);
+    img.setScale(size / img.width);
+    return img;
+  }
+
   create() {
     this.setup(0xe8f5e9);
     const { W, H } = this;
@@ -23,7 +34,7 @@ export class AnimalsScene extends BaseScene {
     ANIMALS.forEach((a, i) => {
       const x = cw * (i % cols) + cw / 2;
       const y = top + ch * Math.floor(i / cols) + ch / 2;
-      const e = this.emoji(x, y, a.emoji, size).setInteractive({ useHandCursor: true });
+      const e = this.animal(x, y, a, size).setInteractive({ useHandCursor: true });
       this.tweens.add({ targets: e, y: y - 6, duration: 900 + i * 50, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
       e.on('pointerdown', () => this.tapAnimal(a, x, y));
     });
@@ -38,12 +49,14 @@ export class AnimalsScene extends BaseScene {
 
     // Hiện to ở giữa màn
     this.big?.destroy();
-    this.big = this.emoji(x, y, a.emoji, this.S * 0.15).setDepth(50);
+    // Hiện to ở giữa (ảnh gốc 256px, phóng tối đa 1.5 lần để không vỡ hình)
+    const bigSize = Math.min(this.S * 0.55, 384);
+    this.big = this.animal(x, y, a, bigSize * 0.3).setDepth(50);
     this.tweens.add({
       targets: this.big,
       x: this.W / 2,
       y: this.H / 2,
-      scale: 3,
+      scale: bigSize / this.big.width,
       duration: 400,
       ease: 'Back.easeOut',
       onComplete: () => {

@@ -1,19 +1,19 @@
 // Nội dung học song ngữ. Thêm/bớt mục ở đây là game tự cập nhật.
 
-// [tên, tiếng kêu (hiện chữ), câu đọc]
+// [tên, tiếng kêu (hiện chữ), câu đọc]. img = public/img/animals/<img>.png (Microsoft Fluent Emoji 3D, MIT)
 export const ANIMALS = [
-  { emoji: '🐱', vi: ['Con mèo', 'Meo meo', 'Con mèo. Con mèo kêu meo meo'], en: ['Cat', 'Meow', 'Cat. The cat says meow, meow'] },
-  { emoji: '🐶', vi: ['Con chó', 'Gâu gâu', 'Con chó. Con chó kêu gâu gâu'], en: ['Dog', 'Woof', 'Dog. The dog says woof, woof'] },
-  { emoji: '🐮', vi: ['Con bò', 'Ò ò', 'Con bò. Con bò kêu ò ò'], en: ['Cow', 'Moo', 'Cow. The cow says moo'] },
-  { emoji: '🐷', vi: ['Con lợn', 'Ụt ịt', 'Con lợn. Con lợn kêu ụt ịt'], en: ['Pig', 'Oink', 'Pig. The pig says oink, oink'] },
-  { emoji: '🐔', vi: ['Con gà', 'Ò ó o', 'Con gà. Con gà gáy ò ó o'], en: ['Chicken', 'Cluck', 'Chicken. The chicken says cluck, cluck'] },
-  { emoji: '🦆', vi: ['Con vịt', 'Cạp cạp', 'Con vịt. Con vịt kêu cạp cạp'], en: ['Duck', 'Quack', 'Duck. The duck says quack, quack'] },
-  { emoji: '🐸', vi: ['Con ếch', 'Ộp ộp', 'Con ếch. Con ếch kêu ộp ộp'], en: ['Frog', 'Ribbit', 'Frog. The frog says ribbit'] },
-  { emoji: '🐑', vi: ['Con cừu', 'Be be', 'Con cừu. Con cừu kêu be be'], en: ['Sheep', 'Baa', 'Sheep. The sheep says baa'] },
-  { emoji: '🐘', vi: ['Con voi', 'Vòi dài', 'Con voi. Con voi có cái vòi thật dài'], en: ['Elephant', 'Long trunk', 'Elephant. The elephant has a long trunk'] },
-  { emoji: '🦁', vi: ['Con sư tử', 'Gầm gừ', 'Con sư tử. Con sư tử gầm gừ'], en: ['Lion', 'Roar', 'Lion. The lion says roar'] },
-  { emoji: '🐒', vi: ['Con khỉ', 'Chí chí', 'Con khỉ. Con khỉ kêu chí chí'], en: ['Monkey', 'Ooh aah', 'Monkey. The monkey says ooh ooh, aah aah'] },
-  { emoji: '🐟', vi: ['Con cá', 'Bơi bơi', 'Con cá. Con cá bơi tung tăng'], en: ['Fish', 'Swim', 'Fish. The fish can swim'] },
+  { emoji: '🐱', img: 'cat', vi: ['Con mèo', 'Meo meo', 'Con mèo. Con mèo kêu meo meo'], en: ['Cat', 'Meow', 'Cat. The cat says meow, meow'] },
+  { emoji: '🐶', img: 'dog', vi: ['Con chó', 'Gâu gâu', 'Con chó. Con chó kêu gâu gâu'], en: ['Dog', 'Woof', 'Dog. The dog says woof, woof'] },
+  { emoji: '🐮', img: 'cow', vi: ['Con bò', 'Ò ò', 'Con bò. Con bò kêu ò ò'], en: ['Cow', 'Moo', 'Cow. The cow says moo'] },
+  { emoji: '🐷', img: 'pig', vi: ['Con lợn', 'Ụt ịt', 'Con lợn. Con lợn kêu ụt ịt'], en: ['Pig', 'Oink', 'Pig. The pig says oink, oink'] },
+  { emoji: '🐔', img: 'chicken', vi: ['Con gà', 'Ò ó o', 'Con gà. Con gà gáy ò ó o'], en: ['Chicken', 'Cluck', 'Chicken. The chicken says cluck, cluck'] },
+  { emoji: '🦆', img: 'duck', vi: ['Con vịt', 'Cạp cạp', 'Con vịt. Con vịt kêu cạp cạp'], en: ['Duck', 'Quack', 'Duck. The duck says quack, quack'] },
+  { emoji: '🐸', img: 'frog', vi: ['Con ếch', 'Ộp ộp', 'Con ếch. Con ếch kêu ộp ộp'], en: ['Frog', 'Ribbit', 'Frog. The frog says ribbit'] },
+  { emoji: '🐑', img: 'ewe', vi: ['Con cừu', 'Be be', 'Con cừu. Con cừu kêu be be'], en: ['Sheep', 'Baa', 'Sheep. The sheep says baa'] },
+  { emoji: '🐘', img: 'elephant', vi: ['Con voi', 'Vòi dài', 'Con voi. Con voi có cái vòi thật dài'], en: ['Elephant', 'Long trunk', 'Elephant. The elephant has a long trunk'] },
+  { emoji: '🦁', img: 'lion', vi: ['Con sư tử', 'Gầm gừ', 'Con sư tử. Con sư tử gầm gừ'], en: ['Lion', 'Roar', 'Lion. The lion says roar'] },
+  { emoji: '🐒', img: 'monkey', vi: ['Con khỉ', 'Chí chí', 'Con khỉ. Con khỉ kêu chí chí'], en: ['Monkey', 'Ooh aah', 'Monkey. The monkey says ooh ooh, aah aah'] },
+  { emoji: '🐟', img: 'fish', vi: ['Con cá', 'Bơi bơi', 'Con cá. Con cá bơi tung tăng'], en: ['Fish', 'Swim', 'Fish. The fish can swim'] },
 ];
 
 export const COLORS = [

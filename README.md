@@ -12,7 +12,7 @@ Có sẵn lớp tích hợp cho **YouTube Playables** và **CrazyGames**.
 | 🔢 Đếm Số | 2+ tuổi | Chạm từng đồ vật để đếm 1 → 10 |
 | 🔤 Chữ Cái | 3+ tuổi | Thẻ chữ cái tiếng Việt kèm từ và hình, vuốt để chuyển |
 
-- **Khóa trẻ em:** phải giữ nút 🏠 1 giây mới về menu.
+- Hình con vật: [Microsoft Fluent Emoji 3D](https://github.com/microsoft/fluentui-emoji) (MIT) trong `public/img/animals/`.
 - **Không quảng cáo, không mua hàng** (bắt buộc với game cho trẻ nhỏ).
 - Hình là emoji, âm thanh tạo bằng Web Audio, giọng đọc dùng Web Speech API (`vi-VN`) → không có file asset, build ~350KB gzip.
 

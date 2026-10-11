@@ -30,41 +30,17 @@ export class BaseScene extends Phaser.Scene {
     return this.add.text(x, y, ch, { fontSize: `${Math.round(size)}px`, padding: { x: 8, y: 8 } }).setOrigin(0.5);
   }
 
-  // Nút về menu: phải GIỮ 1 giây mới thoát, để bé bấm lung tung không thoát ra
+  // Nút về menu: chạm là về
   backButton() {
     const r = this.S * 0.06;
     const x = r + 12;
     const y = r + 12;
     const bg = this.add.circle(x, y, r, 0xffffff, 0.85).setStrokeStyle(3, 0x999999).setDepth(100);
     this.emoji(x, y, '🏠', r).setDepth(101);
-    const ring = this.add.graphics().setDepth(102);
-    let timer = null;
-    let start = 0;
-
-    const cancel = () => {
-      timer?.remove();
-      timer = null;
-      ring.clear();
-    };
-
     bg.setInteractive({ useHandCursor: true }).on('pointerdown', (p, lx, ly, ev) => {
       ev?.stopPropagation();
-      start = this.time.now;
-      timer = this.time.addEvent({
-        delay: 16,
-        loop: true,
-        callback: () => {
-          const t = Math.min(1, (this.time.now - start) / 1000);
-          ring.clear().lineStyle(6, 0x43a047).beginPath();
-          ring.arc(x, y, r + 4, -Math.PI / 2, -Math.PI / 2 + t * Math.PI * 2).strokePath();
-          if (t >= 1) {
-            cancel();
-            this.scene.start('Menu');
-          }
-        },
-      });
+      this.scene.start('Menu');
     });
-    bg.on('pointerup', cancel).on('pointerout', cancel);
     return bg;
   }
 

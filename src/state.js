@@ -10,11 +10,12 @@ export const state = {
     const data = await platform.load();
     this.stars = data.stars || 0;
     if (data.lang) this.lang = data.lang;
-    this.voices = data.voices || {};
+    // v2: giọng mặc định là mp3 Hoài My → bỏ lựa chọn giọng cũ
+    this.voices = data.v === 2 ? data.voices || {} : {};
   },
 
   save() {
-    platform.save({ stars: this.stars, lang: this.lang, voices: this.voices });
+    platform.save({ v: 2, stars: this.stars, lang: this.lang, voices: this.voices });
   },
 
   addStar() {

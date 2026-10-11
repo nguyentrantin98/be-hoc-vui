@@ -9,6 +9,8 @@ import { ColorsScene } from './scenes/ColorsScene.js';
 import { CountingScene } from './scenes/CountingScene.js';
 import { LettersScene } from './scenes/LettersScene.js';
 
+const DPR = Math.min(window.devicePixelRatio || 1, 2);
+
 async function start() {
   await platform.init();
   await state.load();
@@ -18,8 +20,8 @@ async function start() {
     type: Phaser.AUTO,
     parent: 'game',
     backgroundColor: '#fff7e6',
-    scale: { mode: Phaser.Scale.RESIZE, width: window.innerWidth, height: window.innerHeight },
-    resolution: window.devicePixelRatio || 1,
+    // Vẽ theo điểm ảnh thật của màn hình (Retina) để hình sắc nét, rồi thu nhỏ bằng zoom
+    scale: { mode: Phaser.Scale.NONE, width: innerWidth * DPR, height: innerHeight * DPR, zoom: 1 / DPR },
     scene: [MenuScene, TapScene, AnimalsScene, ColorsScene, CountingScene, LettersScene],
     callbacks: {
       postBoot: () => {
@@ -27,6 +29,11 @@ async function start() {
         platform.gameReady();
       },
     },
+  });
+
+  window.addEventListener('resize', () => {
+    game.scale.resize(innerWidth * DPR, innerHeight * DPR);
+    game.scale.setZoom(1 / DPR);
   });
 
   platform.onPause(() => {

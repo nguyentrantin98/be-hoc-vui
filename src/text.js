@@ -3,7 +3,7 @@ export const TEXT = {
   vi: {
     title: 'Bé Học Vui',
     Tap: 'Chạm Vui', Animals: 'Con Vật', Colors: 'Màu Sắc', Counting: 'Đếm Số', Letters: 'Chữ Cái',
-    parentHint: 'Ba mẹ: giữ nút 🏠 1 giây để về menu',
+    parentHint: 'Ba mẹ nên chơi cùng bé nhé ❤️',
     tapHint: '👆 Chạm vào màn hình',
     animalsHint: 'Chạm vào con vật nhé!',
     findColor: 'Bé tìm {x}',
@@ -20,7 +20,7 @@ export const TEXT = {
   en: {
     title: 'Baby Learn',
     Tap: 'Tap Fun', Animals: 'Animals', Colors: 'Colors', Counting: 'Counting', Letters: 'ABC',
-    parentHint: 'Parents: hold 🏠 for 1 second to go back',
+    parentHint: 'Play together with your little one ❤️',
     tapHint: '👆 Tap the screen',
     animalsHint: 'Tap an animal!',
     findColor: 'Find {x}',
