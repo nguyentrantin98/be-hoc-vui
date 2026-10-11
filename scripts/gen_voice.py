@@ -26,11 +26,11 @@ ENGINE = os.environ.get("ENGINE", "edge")
 
 # Edge TTS: giọng + tốc độ (âm = chậm hơn). Đổi ở đây nếu muốn.
 EDGE_VOICES = {"vi": "vi-VN-HoaiMyNeural", "en": "en-US-AnaNeural"}
-EDGE_RATE = "-25%"
+EDGE_RATE = "-40%"
 
 # Piper (dự phòng)
 PIPER_VOICES = {"vi": "vi_VN-vais1000-medium", "en": "en_US-hfc_female-medium"}
-PIPER_LENGTH_SCALE = 1.5  # >1 = chậm hơn
+PIPER_LENGTH_SCALE = 1.7  # >1 = chậm hơn
 
 HF = "https://huggingface.co/rhasspy/piper-voices/resolve/main"
 ROOT = Path(__file__).resolve().parent.parent

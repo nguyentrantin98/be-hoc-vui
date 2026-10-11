@@ -8,7 +8,7 @@ export function allPhrases(lang) {
   const T = TEXT[lang];
   const out = new Set([T.title, T.countSay]);
   MODES.forEach((m) => out.add(T[m.key]));
-  ANIMALS.forEach((a) => out.add(`${a[lang][0]}. ${a[lang][1]}!`));
+  ANIMALS.forEach((a) => out.add(a[lang][2]));
   COLORS.forEach((c) => ['findColorSay', 'correct', 'thisIs'].forEach((k) => out.add(fill(T[k], c[lang]))));
   NUMBER_WORDS[lang].slice(1).forEach((w) => {
     out.add(w);

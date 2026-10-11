@@ -139,7 +139,7 @@ export const audio = {
 
     if (v?.piperId && piper.isReady(v.piperId)) {
       try {
-        await this.play(await piper.synth(v.piperId, text), token, 0.8); // Piper đọc nhanh → chậm lại (giữ cao độ)
+        await this.play(await piper.synth(v.piperId, text), token, 0.7); // Piper đọc nhanh → chậm lại (giữ cao độ)
         return;
       } catch (e) {
         console.warn('Piper lỗi, dùng giọng trình duyệt', e);
@@ -164,7 +164,7 @@ export const audio = {
     u.lang = LANG_TAG[state.lang];
     voice ??= allVoices.find((x) => x.lang?.toLowerCase().replace('_', '-').startsWith(state.lang));
     if (voice) u.voice = voice;
-    u.rate = 0.8;
+    u.rate = 0.7;
     u.pitch = 1.2;
     window.speechSynthesis.speak(u);
   },

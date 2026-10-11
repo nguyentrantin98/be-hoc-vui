@@ -32,8 +32,8 @@ export class AnimalsScene extends BaseScene {
   }
 
   tapAnimal(a, x, y) {
-    const [name, sound] = L(a);
-    audio.say(`${name}. ${sound}!`);
+    const [name, sound, sentence] = L(a);
+    audio.say(sentence);
     this.label.setText(`${name} – ${sound}!`);
 
     // Hiện to ở giữa màn
