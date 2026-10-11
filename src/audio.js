@@ -85,7 +85,7 @@ export const audio = {
   // Mỗi giọng: { key, label, piperId? , voice? }
   voiceOptions(lang = state.lang) {
     const out = [];
-    if (recorded[lang]?.size) out.push({ key: 'mp3', label: lang === 'vi' ? 'Piper (có sẵn)' : 'Piper (built-in)', mp3: true });
+    if (recorded[lang]?.size) out.push({ key: 'mp3', label: lang === 'vi' ? 'Hoài My (chuẩn)' : 'Ana (built-in)', mp3: true });
     if (piperEnabled) PIPER_VOICES[lang].forEach((v) => out.push({ key: `piper:${v.id}`, label: v.label, piperId: v.id }));
     allVoices
       .filter((v) => v.lang?.toLowerCase().replace('_', '-').startsWith(lang))
@@ -139,7 +139,7 @@ export const audio = {
 
     if (v?.piperId && piper.isReady(v.piperId)) {
       try {
-        await this.play(await piper.synth(v.piperId, text), token);
+        await this.play(await piper.synth(v.piperId, text), token, 0.8); // Piper đọc nhanh → chậm lại (giữ cao độ)
         return;
       } catch (e) {
         console.warn('Piper lỗi, dùng giọng trình duyệt', e);
@@ -149,10 +149,12 @@ export const audio = {
     this.webSay(text, v?.voice);
   },
 
-  async play(url, token) {
+  async play(url, token, rate = 1) {
     if (token !== sayToken) return; // bé đã chạm cái khác
     player ??= new Audio();
     player.src = url;
+    player.preservesPitch = true;
+    player.playbackRate = rate;
     await player.play();
   },
 

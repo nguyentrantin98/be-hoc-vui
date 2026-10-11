@@ -44,14 +44,16 @@ Nén thư mục `dist/` thành zip rồi upload lên nền tảng.
 - Code Piper chỉ được tải khi cần, nên không làm nặng lúc mở game.
 - Chỉ bật ở bản web (`npm run build`). Bản YouTube/CrazyGames dùng mp3 tạo sẵn (bên dưới).
 
-## Tạo sẵn mp3 bằng Piper
+## Tạo sẵn mp3 (Edge TTS – giọng Việt chuẩn, miễn phí)
+Mặc định dùng Edge TTS: `vi-VN-HoaiMyNeural` (tiếng Việt), `en-US-AnaNeural` (tiếng Anh), tốc độ -25% cho bé dễ nghe. Muốn dùng Piper offline: chạy với `ENGINE=piper`.
+
 Mọi câu game đọc được liệt kê trong `src/phrases.js`. Script tạo mp3 cho từng câu vào `public/voice/<lang>/<id>.mp3` (+ `manifest.json`).
 Game ưu tiên mp3 có sẵn (giọng "Piper (có sẵn)"), thiếu câu nào mới dùng Piper trực tiếp / giọng máy.
 
 - **Tự động:** workflow `.github/workflows/voice.yml` chạy khi sửa `data.js` / `text.js` / `phrases.js`, rồi tự commit mp3 vào repo. Có thể bấm chạy tay ở tab Actions.
 - **Chạy trên máy:**
   ```bash
-  pip install piper-tts   # cần thêm ffmpeg
+  pip install edge-tts piper-tts   # cần thêm ffmpeg
   node scripts/export-phrases.mjs > /tmp/phrases.json
   python scripts/gen_voice.py /tmp/phrases.json
   ```
