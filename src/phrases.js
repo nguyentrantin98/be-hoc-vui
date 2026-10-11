@@ -2,7 +2,7 @@
 // File này không phụ thuộc trình duyệt để Node đọc được. Nếu thêm câu audio.say() mới, nhớ thêm vào đây.
 
 import { ANIMALS, COLORS, NUMBER_WORDS, LETTERS, MODES } from './data.js';
-import { TEXT, fill } from './text.js';
+import { TEXT, fill, letterSentence } from './text.js';
 
 export function allPhrases(lang) {
   const T = TEXT[lang];
@@ -14,7 +14,7 @@ export function allPhrases(lang) {
     out.add(w);
     out.add(fill(T.allAre, w));
   });
-  LETTERS[lang].forEach(([ch, word]) => out.add(`${ch}. ${word}`));
+  LETTERS[lang].forEach(([ch, word]) => out.add(letterSentence(lang, ch, word)));
   return [...out];
 }
 

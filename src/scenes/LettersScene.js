@@ -2,6 +2,8 @@ import { BaseScene } from './BaseScene.js';
 import { LETTERS } from '../data.js';
 import { audio } from '../audio.js';
 import { t, L } from '../i18n.js';
+import { letterSentence } from '../text.js';
+import { state } from '../state.js';
 
 // 3+ tuổi: lật từng chữ cái (bảng chữ theo ngôn ngữ đang chọn), kèm từ ví dụ và hình. Vuốt hoặc bấm mũi tên để chuyển.
 export class LettersScene extends BaseScene {
@@ -46,7 +48,7 @@ export class LettersScene extends BaseScene {
     const [ch, word, emoji] = this.letters[this.idx];
     this.letter.setText(`${ch} ${ch.toLowerCase()}`);
     this.pic.setText(emoji);
-    this.word.setText(word);
+    this.word.setText(state.lang === 'vi' ? `Ví dụ: ${word}` : `${ch} is for ${word}`);
     this.card.setScale(0.8);
     this.tweens.add({ targets: this.card, scale: 1, duration: 250, ease: 'Back.easeOut' });
     this.speak();
@@ -54,7 +56,7 @@ export class LettersScene extends BaseScene {
 
   speak() {
     const [ch, word] = this.letters[this.idx];
-    audio.say(`${ch}. ${word}`);
+    audio.say(letterSentence(state.lang, ch, word));
     this.pop(this.pic, 1.3);
     if (!this.seen.has(ch)) {
       this.seen.add(ch);

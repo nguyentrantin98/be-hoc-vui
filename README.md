@@ -37,18 +37,11 @@ Nén thư mục `dist/` thành zip rồi upload lên nền tảng.
 - WHO khuyến cáo trẻ dưới 2 tuổi hạn chế màn hình. Nên để ba mẹ chơi cùng bé, mỗi lần vài phút.
 - CrazyGames chủ yếu hướng tới người chơi lớn hơn; nên hỏi đội ngũ của họ trước khi nộp game dành cho trẻ nhỏ.
 
-## Giọng đọc Piper (miễn phí, chạy trong trình duyệt)
-- Dùng [`@diffusionstudio/vits-web`](https://github.com/diffusion-studio/vits-web). Giọng tiếng Việt: `vi_VN-vais1000-medium`, `vi_VN-25hours_single-low`, `vi_VN-vivos-x_low`; tiếng Anh: `en_US-hfc_female-medium`, …
-- Lần đầu tải model (khoảng 20–60MB) từ HuggingFace và lưu trong trình duyệt. Lần sau dùng luôn, không cần mạng.
-- Trong lúc tải, game đọc bằng giọng có sẵn của máy. Nút 🔊 ở menu hiện ⏬ %, ✅ khi xong, ⚠️ nếu lỗi.
-- Code Piper chỉ được tải khi cần, nên không làm nặng lúc mở game.
-- Chỉ bật ở bản web (`npm run build`). Bản YouTube/CrazyGames dùng mp3 tạo sẵn (bên dưới).
-
 ## Tạo sẵn mp3 (Edge TTS – giọng Việt chuẩn, miễn phí)
-Mặc định dùng Edge TTS: `vi-VN-HoaiMyNeural` (tiếng Việt), `en-US-AnaNeural` (tiếng Anh), tốc độ -40% cho bé dễ nghe. Muốn dùng Piper offline: chạy với `ENGINE=piper`.
+Dùng Edge TTS, giọng bé gái cho cả 2 thứ tiếng: `vi-VN-HoaiMyNeural` nâng cao giọng (+30Hz) và `en-US-AnaNeural`, tốc độ -40% cho bé dễ nghe. Muốn dùng Piper offline: chạy với `ENGINE=piper`.
 
 Mọi câu game đọc được liệt kê trong `src/phrases.js`. Script tạo mp3 cho từng câu vào `public/voice/<lang>/<id>.mp3` (+ `manifest.json`).
-Game ưu tiên mp3 có sẵn (giọng "Piper (có sẵn)"), thiếu câu nào mới dùng Piper trực tiếp / giọng máy.
+Game phát mp3 có sẵn; thiếu câu nào mới dùng giọng nữ của máy.
 
 - **Tự động:** workflow `.github/workflows/voice.yml` chạy khi sửa `data.js` / `text.js` / `phrases.js`, rồi tự commit mp3 vào repo. Có thể bấm chạy tay ở tab Actions.
 - **Chạy trên máy:**

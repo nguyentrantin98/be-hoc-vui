@@ -36,7 +36,8 @@ export class BaseScene extends Phaser.Scene {
     const x = r + 12;
     const y = r + 12;
     const bg = this.add.circle(x, y, r, 0xffffff, 0.85).setStrokeStyle(3, 0x999999).setDepth(100);
-    this.emoji(x, y, '🏠', r).setDepth(101);
+    const house = this.add.image(x, y, 'ui-house').setDepth(101);
+    house.setScale((r * 1.3) / house.width);
     bg.setInteractive({ useHandCursor: true }).on('pointerdown', (p, lx, ly, ev) => {
       ev?.stopPropagation();
       this.scene.start('Menu');

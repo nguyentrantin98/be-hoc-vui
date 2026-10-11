@@ -3,7 +3,6 @@
 
 import { platform } from './platform.js';
 import { state } from './state.js';
-import { piper, piperEnabled, PIPER_VOICES } from './piper.js';
 import { phraseId } from './phrases.js';
 
 let ctx = null;
@@ -81,54 +80,19 @@ export const audio = {
     setTimeout(() => this.tone(262, 0.25, 'sine', 0.1), 120);
   },
 
-  // Danh sách giọng cho ngôn ngữ đang chọn: Piper trước, rồi giọng có sẵn của máy.
-  // Mỗi giọng: { key, label, piperId? , voice? }
-  voiceOptions(lang = state.lang) {
-    const out = [];
-    if (recorded[lang]?.size) out.push({ key: 'mp3', label: lang === 'vi' ? 'Hoài My (chuẩn)' : 'Ana (built-in)', mp3: true });
-    if (piperEnabled) PIPER_VOICES[lang].forEach((v) => out.push({ key: `piper:${v.id}`, label: v.label, piperId: v.id }));
-    allVoices
-      .filter((v) => v.lang?.toLowerCase().replace('_', '-').startsWith(lang))
-      .forEach((v) => out.push({ key: `web:${v.name}`, label: v.name, voice: v }));
-    return out;
-  },
-
-  currentVoice() {
-    const list = this.voiceOptions();
-    return list.find((v) => v.key === state.voices[state.lang]) || list[0] || null;
-  },
-
-  // Chuyển sang giọng kế tiếp, trả về giọng mới
-  nextVoice() {
-    const list = this.voiceOptions();
-    if (!list.length) return null;
-    const v = list[(list.indexOf(this.currentVoice()) + 1) % list.length];
-    state.voices[state.lang] = v.key;
-    state.save();
-    this.prepare();
-    return v;
-  },
-
-  // Bắt đầu tải giọng Piper đang chọn (chạy nền)
-  prepare() {
-    const v = this.currentVoice();
-    if (v?.piperId) piper.load(v.piperId);
-  },
-
   stopSpeech() {
     sayToken++;
     window.speechSynthesis?.cancel();
     player?.pause();
   },
 
+  // Ưu tiên mp3 tạo sẵn (giọng bé gái). Thiếu câu nào mới dùng giọng nữ của máy.
   async say(text) {
     if (!enabled) return;
     this.stopSpeech();
     const token = sayToken;
-    const v = this.currentVoice();
-
     const id = phraseId(text);
-    if (v?.mp3 && recorded[state.lang].has(id)) {
+    if (recorded[state.lang]?.has(id)) {
       try {
         await this.play(`./voice/${state.lang}/${id}.mp3`, token);
         return;
@@ -136,36 +100,27 @@ export const audio = {
         console.warn('Không phát được mp3', e);
       }
     }
-
-    if (v?.piperId && piper.isReady(v.piperId)) {
-      try {
-        await this.play(await piper.synth(v.piperId, text), token, 0.7); // Piper đọc nhanh → chậm lại (giữ cao độ)
-        return;
-      } catch (e) {
-        console.warn('Piper lỗi, dùng giọng trình duyệt', e);
-      }
-    }
-    if (v?.piperId) piper.load(v.piperId); // chưa có → tải nền, tạm dùng giọng máy
-    this.webSay(text, v?.voice);
+    this.webSay(text);
   },
 
-  async play(url, token, rate = 1) {
+  async play(url, token) {
     if (token !== sayToken) return; // bé đã chạm cái khác
     player ??= new Audio();
     player.src = url;
-    player.preservesPitch = true;
-    player.playbackRate = rate;
     await player.play();
   },
 
-  webSay(text, voice) {
+  webSay(text) {
     if (!window.speechSynthesis) return;
     const u = new SpeechSynthesisUtterance(text);
     u.lang = LANG_TAG[state.lang];
-    voice ??= allVoices.find((x) => x.lang?.toLowerCase().replace('_', '-').startsWith(state.lang));
+    const list = allVoices.filter((x) => x.lang?.toLowerCase().replace('_', '-').startsWith(state.lang));
+    // Chọn giọng nữ nếu máy có
+    const female = /female|woman|girl|hoai|my|linh|an\b|ana|samantha|zira|aria|jenny|karen|moira|tessa|victoria/i;
+    const voice = list.find((x) => female.test(x.name)) || list[0];
     if (voice) u.voice = voice;
     u.rate = 0.7;
-    u.pitch = 1.2;
+    u.pitch = 1.5; // cao giọng cho giống trẻ con
     window.speechSynthesis.speak(u);
   },
 };

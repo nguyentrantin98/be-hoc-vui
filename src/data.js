@@ -53,9 +53,9 @@ export const LETTERS = {
 
 // Mỗi chế độ học, xếp theo độ tuổi
 export const MODES = [
-  { key: 'Tap', emoji: '✨', color: 0x212121, age: { vi: '0+ tháng', en: '0+ months' } },
-  { key: 'Animals', emoji: '🐱', color: 0xfb8c00, age: { vi: '6+ tháng', en: '6+ months' } },
-  { key: 'Colors', emoji: '🎨', color: 0xe53935, age: { vi: '18+ tháng', en: '18+ months' } },
-  { key: 'Counting', emoji: '🔢', color: 0x43a047, age: { vi: '2+ tuổi', en: '2+ years' } },
-  { key: 'Letters', emoji: '🔤', color: 0x1e88e5, age: { vi: '3+ tuổi', en: '3+ years' } },
+  { key: 'Tap', icon: 'sparkles', emoji: '✨', color: 0x5e35b1, age: { vi: '0+ tháng', en: '0+ months' } },
+  { key: 'Animals', icon: 'cat_face', emoji: '🐱', color: 0xfb8c00, age: { vi: '6+ tháng', en: '6+ months' } },
+  { key: 'Colors', icon: 'artist_palette', emoji: '🎨', color: 0xe53935, age: { vi: '18+ tháng', en: '18+ months' } },
+  { key: 'Counting', icon: 'input_numbers', emoji: '🔢', color: 0x43a047, age: { vi: '2+ tuổi', en: '2+ years' } },
+  { key: 'Letters', icon: 'input_latin_uppercase', emoji: '🔤', color: 0x1e88e5, age: { vi: '3+ tuổi', en: '3+ years' } },
 ];

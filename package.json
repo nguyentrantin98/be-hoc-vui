@@ -12,7 +12,6 @@
     "build:crazygames": "VITE_PLATFORM=crazygames vite build"
   },
   "dependencies": {
-    "@diffusionstudio/vits-web": "^1.0.3",
     "phaser": "3.90.0"
   },
   "devDependencies": {

@@ -1,8 +1,8 @@
 """Tạo sẵn file mp3 cho mọi câu trong game.
 
 Mặc định dùng Edge TTS (giọng neural Microsoft, miễn phí, không cần key):
-  - Tiếng Việt: vi-VN-HoaiMyNeural (nữ miền Bắc, rất chuẩn)
-  - Tiếng Anh:  en-US-AnaNeural (giọng bé gái, hợp game trẻ em)
+  - Tiếng Việt: vi-VN-HoaiMyNeural, nâng cao giọng → nghe như bé gái
+  - Tiếng Anh:  en-US-AnaNeural (giọng bé gái)
 Dự phòng: Piper (offline) nếu chạy với ENGINE=piper.
 
 Cách dùng (cần: pip install edge-tts [piper-tts], ffmpeg, node):
@@ -27,6 +27,7 @@ ENGINE = os.environ.get("ENGINE", "edge")
 # Edge TTS: giọng + tốc độ (âm = chậm hơn). Đổi ở đây nếu muốn.
 EDGE_VOICES = {"vi": "vi-VN-HoaiMyNeural", "en": "en-US-AnaNeural"}
 EDGE_RATE = "-40%"
+EDGE_PITCH = {"vi": "+30Hz", "en": "+10Hz"}  # cao hơn = giọng trẻ con hơn
 
 # Piper (dự phòng)
 PIPER_VOICES = {"vi": "vi_VN-vais1000-medium", "en": "en_US-hfc_female-medium"}
@@ -38,12 +39,12 @@ OUT = ROOT / "public" / "voice"
 MODELS = ROOT / ".piper-models"
 
 
-async def edge_one(text: str, voice: str, mp3: Path) -> None:
+async def edge_one(text: str, voice: str, pitch: str, mp3: Path) -> None:
     import edge_tts
 
     for attempt in range(4):
         try:
-            await edge_tts.Communicate(text, voice, rate=EDGE_RATE).save(str(mp3))
+            await edge_tts.Communicate(text, voice, rate=EDGE_RATE, pitch=pitch).save(str(mp3))
             return
         except Exception as e:  # mạng chập chờn → thử lại
             if attempt == 3:
@@ -89,7 +90,7 @@ async def main() -> None:
             old.unlink()
         if ENGINE == "edge":
             for pid, text in items.items():
-                await edge_one(text, voices[lang], out_dir / f"{pid}.mp3")
+                await edge_one(text, voices[lang], EDGE_PITCH[lang], out_dir / f"{pid}.mp3")
                 print(f"[{lang}] {pid}  {text}")
         else:
             piper_all(lang, items, out_dir)
